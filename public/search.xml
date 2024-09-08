@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Git基本使用教程</title>
+      <link href="/2018/05/03/Git%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2018/05/03/Git%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>随便整理的一些自用的Git指令</p></blockquote><h1 id="GitHub创建仓库提示代码"><a href="#GitHub创建仓库提示代码" class="headerlink" title="GitHub创建仓库提示代码"></a>GitHub创建仓库提示代码</h1><pre><code>echo &quot;# 项目名&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commit&quot;git remote add origin git@github.com:qiubaiying/项目名.gitgit push -u origin master</code></pre><p>若仓库存在直接push</p><pre><code>git remote add origin git@github.com:qiubaiying/test.gitgit push -u origin master</code></pre><h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><h4 id="创建仓库（初始化）"><a href="#创建仓库（初始化）" class="headerlink" title="创建仓库（初始化）"></a>创建仓库（初始化）</h4><pre><code>在当前指定目录下创建git init新建一个仓库目录git init [project-name]克隆一个远程项目git clone [url]</code></pre><h4 id="添加文件到缓存区"><a href="#添加文件到缓存区" class="headerlink" title="添加文件到缓存区"></a>添加文件到缓存区</h4><pre><code>添加所有变化的文件 git add .添加名称指定文件git add text.txt</code></pre><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><pre><code>设置提交代码时的用户信息git config [--global] user.name &quot;[name]&quot;git config [--global] user.email &quot;[email address]&quot;</code></pre><h4 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h4><pre><code>提交暂存区到仓库区git commit -m &quot;msg&quot;# 提交暂存区的指定文件到仓库区$ git commit [file1] [file2] ... -m [message]# 提交工作区自上次commit之后的变化，直接到仓库区$ git commit -a# 提交时显示所有diff信息$ git commit -v# 使用一次新的commit，替代上一次提交# 如果代码没有任何新变化，则用来改写上一次commit的提交信息$ git commit --amend -m [message]# 重做上一次commit，并包括指定文件的新变化$ git commit --amend [file1] [file2] ...</code></pre><h4 id="远程同步"><a href="#远程同步" class="headerlink" title="远程同步"></a>远程同步</h4><pre><code># 下载远程仓库的所有变动$ git fetch [remote]# 显示所有远程仓库$ git remote -v# 显示某个远程仓库的信息$ git remote show [remote]# 增加一个新的远程仓库，并命名$ git remote add [shortname] [url]# 取回远程仓库的变化，并与本地分支合并$ git pull [remote] [branch]# 上传本地指定分支到远程仓库$ git push [remote] [branch]# 强行推送当前分支到远程仓库，即使有冲突$ git push [remote] --force# 推送所有分支到远程仓库$ git push [remote] --all</code></pre><h4 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h4><pre><code># 列出所有本地分支$ git branch# 列出所有远程分支$ git branch -r# 列出所有本地分支和远程分支$ git branch -a# 新建一个分支，但依然停留在当前分支$ git branch [branch-name]# 新建一个分支，并切换到该分支$ git checkout -b [branch]# 新建一个分支，指向指定commit$ git branch [branch] [commit]# 新建一个分支，与指定的远程分支建立追踪关系$ git branch --track [branch] [remote-branch]# 切换到指定分支，并更新工作区$ git checkout [branch-name]# 切换到上一个分支$ git checkout -# 建立追踪关系，在现有分支与指定的远程分支之间$ git branch --set-upstream [branch] [remote-branch]# 合并指定分支到当前分支$ git merge [branch]# 选择一个commit，合并进当前分支$ git cherry-pick [commit]# 删除分支$ git branch -d [branch-name]# 删除远程分支$ git push origin --delete [branch-name]$ git branch -dr [remote/branch]</code></pre><h4 id="标签Tags"><a href="#标签Tags" class="headerlink" title="标签Tags"></a>标签Tags</h4><pre><code>添加标签 在当前commitgit tag -a v1.0 -m &#39;xxx&#39; 添加标签 在指定commitgit tag v1.0 [commit]查看git tag删除git tag -d V1.0删除远程taggit push origin :refs/tags/[tagName]推送git push origin --tags拉取git fetch origin tag V1.0新建一个分支，指向某个taggit checkout -b [branch] [tag]</code></pre><h4 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h4><pre><code># 显示有变更的文件$ git status# 显示当前分支的版本历史$ git log# 显示commit历史，以及每次commit发生变更的文件$ git log --stat# 搜索提交历史，根据关键词$ git log -S [keyword]# 显示某个commit之后的所有变动，每个commit占据一行$ git log [tag] HEAD --pretty=format:%s# 显示某个commit之后的所有变动，其&quot;提交说明&quot;必须符合搜索条件$ git log [tag] HEAD --grep feature# 显示某个文件的版本历史，包括文件改名$ git log --follow [file]$ git whatchanged [file]# 显示指定文件相关的每一次diff$ git log -p [file]# 显示过去5次提交$ git log -5 --pretty --oneline# 显示所有提交过的用户，按提交次数排序$ git shortlog -sn# 显示指定文件是什么人在什么时间修改过$ git blame [file]# 显示暂存区和工作区的差异$ git diff# 显示暂存区和上一个commit的差异$ git diff --cached [file]# 显示工作区与当前分支最新commit之间的差异$ git diff HEAD# 显示两次提交之间的差异$ git diff [first-branch]...[second-branch]# 显示今天你写了多少行代码$ git diff --shortstat &quot;@&#123;0 day ago&#125;&quot;# 显示某次提交的元数据和内容变化$ git show [commit]# 显示某次提交发生变化的文件$ git show --name-only [commit]# 显示某次提交时，某个文件的内容$ git show [commit]:[filename]# 显示当前分支的最近几次提交$ git reflog</code></pre><h4 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h4><pre><code># 恢复暂存区的指定文件到工作区$ git checkout [file]# 恢复某个commit的指定文件到暂存区和工作区$ git checkout [commit] [file]# 恢复暂存区的所有文件到工作区$ git checkout .# 重置暂存区的指定文件，与上一次commit保持一致，但工作区不变$ git reset [file]# 重置暂存区与工作区，与上一次commit保持一致$ git reset --hard# 重置当前分支的指针为指定commit，同时重置暂存区，但工作区不变$ git reset [commit]# 重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致$ git reset --hard [commit]# 重置当前HEAD为指定commit，但保持暂存区和工作区不变$ git reset --keep [commit]# 新建一个commit，用来撤销指定commit# 后者的所有变化都将被前者抵消，并且应用到当前分支$ git revert [commit]# 暂时将未提交的变化移除，稍后再移入$ git stash$ git stash pop</code></pre><h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><pre><code># 生成一个可供发布的压缩包$ git archives</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 自制教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>BINGAI使用/部署教程</title>
+      <link href="/2018/05/03/Bing%E9%83%A8%E7%BD%B2/"/>
+      <url>/2018/05/03/Bing%E9%83%A8%E7%BD%B2/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://www.laogou717.com/2024/02/06/AI%20era/bing/newbing/">这篇文章的封面来自神烦老狗的博客文章封面</a><br>接下来是正文   </p><blockquote><p>目前主流&#x2F;可用的分别是jianjianai的ms-copilot-play （原名microsoft-proxy-copilot）和adams549659584的go-proxy-bingai（现在由Harry-zklcdc维护）</p></blockquote><h1 id="一-Microsoft-Proxy-Copilot-部署"><a href="#一-Microsoft-Proxy-Copilot-部署" class="headerlink" title="一.Microsoft-Proxy-Copilot 部署"></a>一.Microsoft-Proxy-Copilot 部署</h1><p>访问仓库地址：<a href="https://github.com/jianjianai/ms-copilot-play">项目网址</a><br>接下来Fork仓库（你也可以直接访问<a href="https://github.com/jianjianai/ms-copilot-play/fork">FORK网址</a> ）<br>这里使用cloudflare pages部署，因为它的域名可以直接访问，不像wokers要绑定自己的域名，否则中国无法访问。     </p><h2 id="CloudFlare-Pages-部署"><a href="#CloudFlare-Pages-部署" class="headerlink" title="CloudFlare Pages 部署"></a>CloudFlare Pages 部署</h2><p>1.Fork此仓库</p><p><img src="https://github.com/jianjianai/microsoft-copilot-porxy/assets/59829816/d61bf46d-7edf-43de-b66c-ede1f8cefed2" alt="image"><br><img src="https://github.com/jianjianai/microsoft-copilot-porxy/assets/59829816/3a4be71a-bd12-4938-add8-00998c5ca0aa" alt="image"></p><ol start="2"><li>Page连接到GitHub</li></ol><p><img src="https://github.com/jianjianai/microsoft-copilot-porxy/assets/59829816/598dd9c8-05d9-46dc-9c9b-a15da56ff0b5" alt="image"><br><img src="https://github.com/jianjianai/microsoft-copilot-porxy/assets/59829816/85286d7c-913e-4550-b867-344e537077b6" alt="image"><br><img src="https://github.com/jianjianai/microsoft-copilot-porxy/assets/59829816/c118fe5b-1684-40f5-9b5a-b719d22e17be" alt="image"><br><img src="https://github.com/jianjianai/microsoft-copilot-porxy/assets/59829816/78ffc287-f472-4758-8df1-2f14aa5a70a4" alt="image"><br><img src="https://github.com/jianjianai/microsoft-copilot-porxy/assets/59829816/cd63bb70-6e6d-435f-8691-0f7734e88605" alt="image"></p><ol start="3"><li>设置设置仓库</li></ol><p>输入构建命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build-page</span><br></pre></td></tr></table></figure><p><img src="https://github.com/jianjianai/microsoft-copilot-porxy/assets/59829816/02fbfe54-f760-4a02-9946-e57ca3ecb648" alt="image"></p><p>之后就完成了。<br><img src="https://github.com/jianjianai/microsoft-copilot-porxy/assets/59829816/ce012d84-7df9-426b-877e-42e6fe77872e" alt="image"></p><ol start="4"><li>后续更新</li></ol><p>同步 github 仓库后 Workers 和 Pages 会自动同步更新。</p><p><img src="https://github.com/jianjianai/microsoft-copilot-porxy/assets/59829816/f26b3753-0963-4a78-8773-7a9b6ebc1199" alt="image"></p><h1 id="二-go-proxy-bingai部署"><a href="#二-go-proxy-bingai部署" class="headerlink" title="二.go-proxy-bingai部署"></a>二.go-proxy-bingai部署</h1><p>1.访问仓库网址：<a href="https://github.com/Harry-zklcdc/go-proxy-bingai">项目网址</a><br>然后Fork仓库<a href="https://github.com/Harry-zklcdc/go-proxy-bingai/fork">项目FORK网址</a><br>同样，我们使用cloudflare pages部署，因为它的域名可以直接访问，不像wokers要绑定自己的域名，否则中国无法访问。    </p><h3 id="1-注册-Cloudflare-账号"><a href="#1-注册-Cloudflare-账号" class="headerlink" title="1. 注册 Cloudflare 账号"></a>1. 注册 Cloudflare 账号</h3><p>具体注册方法请出门右拐隔壁百度 or Google</p><h3 id="2-部署"><a href="#2-部署" class="headerlink" title="2.部署"></a>2.部署</h3><p>登录账户后, 依次点击「Workers 和 Pages」-&gt;「创建应用程序」</p><p>然后点击「Pages」-&gt; 「连接到 Git」   </p><p>然后点击「连接到 Github」   </p><p>在跳转的页面中，选择「All repositories」-&gt;「Install &amp; Authorize」    </p><p>返回 Cloudflare Pages 的创建页面后, 选择对应的账号, 然后选择「go-proxy-bingai」仓库, 最后点击「开始设置」    </p><p>设置「构建命令」为</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cloudflare/build.sh</span><br></pre></td></tr></table></figure><p>然后点击「环境变量」, 点击「添加变量」, 设置 BYPASS_SERVER 的值如下, 或自己部署的 ByPass 服务地址</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://bypass.b1ng.chat</span><br></pre></td></tr></table></figure><p>然后点击保存并部署, 等待构建部署完成即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 自制教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>

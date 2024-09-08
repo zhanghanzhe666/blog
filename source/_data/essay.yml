@@ -1,0 +1,17 @@
+- title: 即刻短文
+  subTitle: 咸鱼的日常生活。
+  tips: 随时随地，分享生活
+  buttonText: 关于我
+  buttonLink: /about/
+  limit: 30
+  home_essay: true
+  top_background: /img/touxiang.jpg
+  essay_list:
+
+    - content: 做了一个噩梦, 梦到从楼顶坠下去了。😷
+      date: 2024/08/24
+    - content: JOJO是真的好看！
+      date: 2024/07/21
+      link: https://www.bilibili.com/bangumi/play/ss39431?spm_id_from=333.337.0.0
+    - content: 家人们，谁懂啊，学校提前3天开学，还要考试，晚自习要干到8：30，我太难了😭
+      date: 2024/09/1
